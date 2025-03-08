@@ -7,29 +7,77 @@ using UnityEngine.UIElements;
 
 public class move : MonoBehaviour
 {
-    private CharacterController player;
+    public Rigidbody body;
     GameObject obj;
     private float dtime = 0.0f;
     private short fps = 0;
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
         obj = this.gameObject;
-        player = GetComponent<CharacterController>();
 
-
+        body = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
         getFPS();
-        keymouthevent();
+        //keymouthevent();
+        var transform = obj.transform;
+
         float horizontal = Input.GetAxis("Horizontal"); // A/D »ò ×ó/ÓÒ·½Ïò¼ü
         float vertical = Input.GetAxis("Vertical");
         bool jump = Input.GetButtonDown("Jump");
         float space = jump ? 1.0f : 0.0f;
-        player.SimpleMove(new Vector3(horizontal, space, vertical));
+        body.Move(new Vector3(transform.position.x + 2 * horizontal * Time.deltaTime
+            , transform.position.y + space * Time.deltaTime
+            , transform.position.z + 2 * vertical * Time.deltaTime
+            ), transform.rotation);
+        if (Input.GetMouseButtonDown(0))
+        {
+            animator.Play("right");
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            animator.Play("left");
+        }
+
     }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    Debug.Log(collision.gameObject.name + " enter");
+    //}
+    //private void OnCollisionStay(Collision collision)
+    //{
+    //    Debug.Log(collision.gameObject.name);
+    //}
+    //private void OnCollisionExit(Collision collision)
+    //{
+    //    Debug.Log(collision.gameObject.name + " exit");
+    //}
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    var car = GameObject.Find("FNAL_MODEL");
+    //    if (car != null)
+    //    {
+    //        car.SetActive(false);
+    //        car.SetActive(true);
+    //    }
+    //}
+    //private void OnTriggerStay(Collider other)
+    //{
+        
+    //}
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    var car = GameObject.Find("FNAL_MODEL");
+    //    if (car != null)
+    //    {
+            
+    //    }
+    //}
     private void keymouthevent()
     {
         var transform = obj.transform;
