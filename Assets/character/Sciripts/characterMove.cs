@@ -64,14 +64,7 @@ public class characterMove : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             pressStartTime = Time.time - pressStartTime;
-            if (pressStartTime < 0.2f && speed < 0.001)
-            {
-
-                animator.SetTrigger("dodgeback");
-
-
-            }
-            else if(pressStartTime < 0.6f)
+            if(pressStartTime < 0.6f)
                 animator.SetTrigger("roll");
 
         }

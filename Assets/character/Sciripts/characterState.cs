@@ -8,6 +8,7 @@ public class characterState : MonoBehaviour
     public Animator animator;
     public float maxSpeed = 5.0f;
     public float jumpHeight = 2f;
+    public bool isFlighting;
     public short Level { get; private set; } = 1; 
     public int MaxHP { get; private set; } = 100;   // 最大生命值
     public int HP { get; private set; } = 100;      // 当前生命值
